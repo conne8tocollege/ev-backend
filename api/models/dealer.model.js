@@ -33,7 +33,7 @@ const applicantSchema = new mongoose.Schema(
       required: true,
     },
     yearsInBusiness: {
-      type: Number,
+      type: String, 
       required: true,
     },
     turnover: {
@@ -48,6 +48,10 @@ const applicantSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    termsAccepted:{
+      type:Boolean,
+      default:false
+    }
   },
   {
     timestamps: true,

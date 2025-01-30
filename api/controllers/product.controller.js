@@ -10,15 +10,13 @@ export const create = async (req, res, next) => {
     return next(errorHandler(400, "Please provide all required fields"));
   }
 
-  console.log(req.body);
-
   const newProduct = new Product({
     ...req.body,
     userId: req.user.id,
   });
-
   try {
     const savedProduct = await newProduct.save();
+    console.log(savedProduct)
     res.status(201).json(savedProduct);
   } catch (error) {
     next(error);
@@ -42,7 +40,7 @@ export const getproducts = async (req, res, next) => {
         ],
       }),
     })
-      .sort({ updatedAt: sortDirection })
+      .sort({ createdAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
 

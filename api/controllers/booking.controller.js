@@ -2,15 +2,20 @@ import Booking from "../models/booking.model.js";
 
 // Create a new booking
 export const createBooking = async (req, res) => {
+    req.body.bookingAmount = Number(req.body.bookingAmount);
+
     try {
         const newBooking = new Booking(req.body);
+
         const savedBooking = await newBooking.save();
+
         res.status(201).json({
             success: true,
             message: "Booking created successfully",
             booking: savedBooking,
         });
     } catch (error) {
+        console.error("Error creating booking:", error);
         res.status(500).json({
             success: false,
             message: "Error creating booking",
@@ -18,6 +23,7 @@ export const createBooking = async (req, res) => {
         });
     }
 };
+
 
 // Get all bookings
 export const getAllBookings = async (req, res) => {

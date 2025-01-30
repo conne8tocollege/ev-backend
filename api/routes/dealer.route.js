@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 // Create a new Dealer
-router.post("/", createDealer);
+router.post("/create", createDealer);
 
 // Get all Dealers
 router.get("/", getDealers);

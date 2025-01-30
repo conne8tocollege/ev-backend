@@ -3,10 +3,11 @@ import Dealer from "../models/dealer.model.js";
 // Create a new Dealer
 export const createDealer = async (req, res) => {
   try {
-    const Dealer = new Dealer(req.body);
-    await Dealer.save();
+    const newDealer = new Dealer(req.body);
+    const savedData = await newDealer.save();
     res.status(201).json({ message: "Dealer created successfully", Dealer });
   } catch (error) {
+    console.log(error)
     res.status(400).json({ message: "Failed to create Dealer", error: error.message });
   }
 };
@@ -14,8 +15,8 @@ export const createDealer = async (req, res) => {
 // Get all Dealers
 export const getDealers = async (req, res) => {
   try {
-    const Dealers = await Dealer.find().sort({ createdAt: -1 });
-    res.status(200).json({ Dealers });
+    const getDealers = await Dealer.find().sort({ createdAt: -1 });
+    res.status(200).json({ getDealers });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch Dealers", error: error.message });
   }
@@ -25,11 +26,11 @@ export const getDealers = async (req, res) => {
 export const getDealerById = async (req, res) => {
   try {
     const { id } = req.params;
-    const Dealer = await Dealer.findById(id);
-    if (!Dealer) {
+    const getDealer = await Dealer.findById(id);
+    if (!getDealer) {
       return res.status(404).json({ message: "Dealer not found" });
     }
-    res.status(200).json({ Dealer });
+    res.status(200).json({ getDealer });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch Dealer", error: error.message });
   }

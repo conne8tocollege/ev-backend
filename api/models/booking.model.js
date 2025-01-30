@@ -22,7 +22,7 @@ const bookingSchema = new mongoose.Schema(
         contactNumber: {
             type: String,
             required: true, // Mandatory field
-            match: /^\+91\s\d{10}$/, // Matches Indian phone numbers with +91
+            match: /^\+91\s?\d{10}$/, // Matches Indian phone numbers with +91
         },
         state: {
             type: String,
