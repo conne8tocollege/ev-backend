@@ -13,6 +13,7 @@ import testimonialRoutes from "./routes/testimonial.route.js";
 import metatagsRoutes from "./routes/metatags.route.js";
 import bookingRoutes from "./routes/booking.route.js";
 import dealerRoutes from "./routes/dealer.route.js";
+import vehicleRoutes from "./routes/vehicle.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors";
@@ -20,14 +21,19 @@ dotenv.config();
 const url =
   process.env.MONGO_URI ||
   "mongodb+srv://abhishek261286:OcVftsTeo7umpcni@cluster0.zqpga.mongodb.net/ev-scooter?retryWrites=true&w=majority&appName=Cluster0";
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log("MongoDb is connected");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(url);
+    console.log("MongoDB is connected");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    process.exit(1); // Exit process if connection fails
+  }
+};
+
+// Call the function to connect
+connectDB();
+
 
 const __dirname = path.resolve();
 
@@ -58,6 +64,7 @@ app.use("/api/inquiry", inquiryRoutes);
 app.use("/api/applicant", dealerRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/metatags", metatagsRoutes);
+app.use("/api/vehicles", vehicleRoutes);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
